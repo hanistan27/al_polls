@@ -89,7 +89,7 @@ topics = [
     "Reactions of carboxylic acid derivatives (Acid chloride reactions with aqueous sodium)"
 ]
 question = (f'I want you to generate  intermediate to advanced poll question(only one) on the topic '
-            f'{topics[random.randrange(len(topics))]}. I want your answer to be in a specific format.Do not use any '
+            f'{random.choice(topics)}. I want your answer to be in a specific format.Do not use any '
             f'type of latex formatting or anything.You will provide the answer in a dictionary format. I only want '
             f'the relevant question and answers. Not any extra bluff or thing.REMEMBER, YOU SHOULD ONLY PROVIDE THE '
             f'JSON FORMATTED FILE AND NOT OTHER TEXT'
