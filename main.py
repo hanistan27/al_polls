@@ -1,6 +1,4 @@
-import os
 import json
-import asyncio
 import re
 import telegram
 from brainus_ai import BrainusAI
