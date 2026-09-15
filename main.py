@@ -112,7 +112,15 @@ question = (f'I want you to generate  intermediate to advanced poll question(onl
             f'JSON FORMATTED FILE AND NOT OTHER TEXT'
             f'You should '
             f'not drag away from '
-            f'the syllabus at all whatever the topic it is. Only ask questions from the syllabus. And the response should be in a dictionary format. your dictionary should have the keys "question" which represents the poll question and "answers" which represents a list of 5 tricky answers for the question with only one correct answer and an "answer" key which consists of the index of the correct answer from the list of available answers.')
+            f'the syllabus at all whatever the topic it is. Only ask questions from the syllabus. And the response '
+            f'should  be in a dictionary format. your dictionary should have the keys "question" which represents '
+            f'the poll question and "answers" which represents a list of 5 tricky answers for the question with only '
+            f'one  correct answer(remember the answers length should not exceed 100 according to telegrams '
+            f'limitation. same goes for question length limitation which is 256) and '
+            f'an "answer" key '
+            f'which consists '
+            f'of the index of the correct answer from the li'
+            f'st of available answers.')
 
 
 async def send_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
