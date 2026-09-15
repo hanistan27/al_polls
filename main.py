@@ -10,6 +10,25 @@ from telegram.ext import (
 )
 from dotenv import load_dotenv
 import random
+import threading
+import http.server
+import socketserver
+import os
+
+# 1. Create a dummy web server to trick Render's port scanner
+def run_dummy_server():
+    port = int(os.environ.get("PORT", 10000))
+    handler = http.server.SimpleHTTPRequestHandler
+    
+    # Allow the port to be reused immediately on restart
+    socketserver.TCPServer.allow_reuse_address = True
+    
+    with socketserver.TCPServer(("0.0.0.0", port), handler) as httpd:
+        print(f"Dummy server trick active on port {port}")
+        httpd.serve_forever()
+
+# 2. Run the dummy server on a separate thread so it doesn't block your script
+threading.Thread(target=run_dummy_server, daemon=True).start()
 
 load_dotenv(dotenv_path='bot.env')
 BRAINUS_API_KEY = os.getenv("BRAINUS_API_KEY")
@@ -157,3 +176,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+print("Your actual script is now running...")
