@@ -22,7 +22,6 @@ def run_dummy_server():
     socketserver.TCPServer.allow_reuse_address = True
     
     with socketserver.TCPServer(("0.0.0.0", port), handler) as httpd:
-        print(f"Dummy server trick active on port {port}")
         httpd.serve_forever()
 
 # 2. Run the dummy server on a separate thread so it doesn't block your script
@@ -32,96 +31,93 @@ load_dotenv(dotenv_path='bot.env')
 BRAINUS_API_KEY = os.getenv("BRAINUS_API_KEY")
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
 topics = [
-    "Hydrogen spectrum",
-    "Shapes of orbitals",
-    "Orbitals and quantum numbers",
-    "Electron configuration (Aufbau principle, Pauli exclusion principle, Hund's rule, Condensed electron configurations)",
-    "Building of the periodic table",
-    "Periodic trends shown by s and p block elements (Sizes of atoms and ions, Ionization energy, Electron gain energy, Electronegativity)",
-    "Covalent bonds (Lewis dot diagrams and Lewis dot-dash structures)",
-    "Dative covalent bonds",
-    "Valence Shell Electron Pair Repulsion theory (VSEPR theory)",
-    "Hybridization of atomic orbitals",
-    "Formation of double and triple bonds",
-    "Resonance structures",
-    "Effect of electronegativity and geometry on the polarity of molecules",
-    "Dipole moment",
-    "Factors affecting the magnitude of electronegativity",
-    "Ionic bonds/ionic interactions",
-    "Metallic bonds",
-    "Secondary interactions",
-    "Oxidation number (Basic rules, Use in redox reactions)",
-    "Nomenclature of inorganic compounds",
-    "Atomic mass, mole and Avogadro constant",
-    "Molar mass",
-    "Types of chemical formulae (Empirical and molecular formula determination)",
-    "Composition of a substance in a mixture",
-    "Percentage composition in a solution (homogeneous mixture)",
-    "Molality and Molarity",
-    "Balancing chemical reactions (Inspection method, Redox method, Simple nuclear reactions)",
-    "Preparation of solutions",
-    "Calculations based on chemical reactions",
-    "s Block Elements (Group 1 elements: Group trends, Reactions, Thermal stability, Solubility of salts, Flame test)",
-    "s Block Elements (Group 2 elements: Group trends, Reactions, Thermal stability, Solubility of salts, Flame test)",
-    "p Block Elements (Group 13 elements: Group trends, Aluminium)",
-    "p Block Elements (Group 14 elements: Group trends, Diamond and graphite, Carbon monoxide and carbon dioxide, Oxoacid of carbon)",
-    "p Block Elements (Group 15 elements: Group trends, Chemistry of nitrogen, Oxoacids of nitrogen, Ammonia and ammonium salts)",
-    "p Block Elements (Group 16 elements: Group trends, Hydrides, Oxygen, Sulphur, Oxygen containing compounds, Hydrogen peroxide, Sulphur containing compounds, Oxoacids of sulphur)",
-    "p Block Elements (Group 17 elements: Group trends, Simple compounds, Reactions of chlorine)",
-    "p Block Elements (Group 18 elements: Group trends, Simple compounds)",
-    "Periodic trends shown by s and p block elements (Valence)",
-    "Rate of reaction (Average, instantaneous and initial rates)",
-    "Effect of concentration on reaction rate (Graphical representation for zero, first and second order reactions)",
-    "Methods to determine order of a reaction and rate constant",
-    "Effect of physical nature (surface area) on reaction rate",
-    "Effect of catalysts on reaction rate",
-    "Reaction mechanisms (Molecularity, Single step, Multistep, Rate laws, Consecutive reactions, Pre-equilibrium)",
-    "Energy profiles of reactions",
-    "Concept of equilibrium (Physical and chemical processes)",
-    "Law of chemical equilibrium and equilibrium constant (Expression for general terms, Extent of reaction, Different forms, Gaseous systems, Heterogeneous equilibria, Multi-step reactions)",
-    "Predicting direction of reaction and calculations based on equilibrium constant",
-    "Calculating equilibrium concentrations",
-    "Factors affecting equilibrium",
-    "Ionic equilibrium in aqueous solutions (Acids, bases and salts, Conjugate acid-base pairs, Ionization, Ionization constant of water and its ionic product, pH scale, Weak acids/bases and their ionization constants, Relation between $$K_a$$ and $$K_b$$)",
-    "Hydrolysis of salts and pH of their solutions",
-    "Aqueous solutions containing a common ion",
-    "Volumetric titrations",
-    "Di- and polybasic acids and di- and polyacidic bases",
-    "Acid-base indicators",
-    "Buffer solutions",
-    "Solubility equilibria (Ionic and covalent solutions, Solubility product, Calculations, Predicting precipitation, Factors affecting solubility, pH effect, Application in qualitative analysis)",
-    "Equilibria in different phases (Evaporation, Saturated vapor pressure, Boiling point, Enthalpy of vaporization, Phase diagrams)",
-    "Liquid - vapour equilibrium in binary liquid systems (Ideal mixtures, Immiscible liquid-liquid systems)",
-    "Partition/Distribution coefficient",
-    "Conductivity (Factors affecting solution conductivity)",
-    "Electrodes in equilibrium (Metal-metal ion, Metal-insoluble salt, Gas, Redox electrodes)",
-    "Electrochemical cells (Construction, Factors affecting electrode potential, Types)",
-    "Electrolysis (Water, $$CuSO_4(aq)$$ with copper/inert electrodes, $$NaCl(aq)$$ with inert electrodes, Molten $$NaCl$$ with inert electrodes, Quantitative aspects)",
-    "Structure, properties, and reactions of alcohols (Classification, Physical properties, Reactions involving O-H bond cleavage, Nucleophilic substitution involving C-O bond cleavage, Elimination, Oxidation)",
-    "Structure, properties, and reactions of phenols (Acidity, Reactions involving O-H bond cleavage, Non-occurrence of nucleophilic substitution)",
-    "Reactivity of the benzene ring in phenols (Reaction with $$Br_2$$, Nitration)",
-    "Structure, properties, and reactions of aldehydes and ketones (Physical properties, Nucleophilic addition reactions - HCN, Grignard reagents, 2,4-DNP, Self-condensation, Reduction - $$LiAlH_4$$ or $$NaBH_4$$, Clemmenson reduction, Oxidation of aldehydes - Tollens reagent, Fehling solution, acidified potassium dichromate/chromic oxide/potassium permanganate)",
-    "Structure, properties, and reactions of carboxylic acids (Physical properties, Reactions of -COOH group - O-H cleavage, C-O cleavage, Reduction with $$LiAlH_4$$)",
-    "Reactions of carboxylic acid derivatives (Acid chloride reactions with aqueous sodium)"
+    "Hydrogen Spectrum",
+    "Orbital Shapes",
+    "Orbitals & Quantum Numbers",
+    "Electron Configuration (Aufbau, Pauli, Hund's Rule, Condensed)",
+    "Periodic Table Construction",
+    "s & p Block Periodic Trends (Size, Ionization E, Electron Affinity, Electronegativity)",
+    "Covalent Bonds (Lewis Structures)",
+    "Dative Bonds",
+    "VSEPR Theory",
+    "Orbital Hybridization",
+    "Double & Triple Bonds",
+    "Resonance Structures",
+    "Molecule Polarity (Electronegativity & Geometry)",
+    "Dipole Moment",
+    "Electronegativity Factors",
+    "Ionic Bonds",
+    "Metallic Bonds",
+    "Secondary Interactions",
+    "Oxidation Number (Redox Use)",
+    "Inorganic Nomenclature",
+    "Atomic Mass, Mole, Avogadro's Constant",
+    "Molar Mass",
+    "Chemical Formulae (Empirical & Molecular)",
+    "Mixture Composition",
+    "Solution Percentage Composition",
+    "Molality & Molarity",
+    "Balancing Reactions (Inspection, Redox, Nuclear)",
+    "Solution Preparation",
+    "Reaction Calculations",
+    "s Block (Group 1: Trends, Reactions, Stability, Solubility, Flame Test)",
+    "s Block (Group 2: Trends, Reactions, Stability, Solubility, Flame Test)",
+    "p Block (Group 13: Trends, Al)",
+    "p Block (Group 14: Trends, C, CO, CO2, Carbon Oxoacid)",
+    "p Block (Group 15: Trends, N Chemistry, N Oxoacids, Ammonia/Ammonium)",
+    "p Block (Group 16: Trends, Hydrides, O, S, O Cmpds, $$H_2O_2$$, S Cmpds, S Oxoacids)",
+    "p Block (Group 17: Trends, Cmpds, Cl Reactions)",
+    "p Block (Group 18: Trends, Cmpds)",
+    "s & p Block Periodic Trends (Valence)",
+    "Reaction Rate (Avg, Instant, Initial)",
+    "Conc. Effect on Rate (0, 1st, 2nd Order Graphs)",
+    "Reaction Order & Rate Constant Determination",
+    "Surface Area Effect on Rate",
+    "Catalyst Effect on Rate",
+    "Reaction Mechanisms (Molecularity, Steps, Rate Laws, Pre-equilibrium)",
+    "Reaction Energy Profiles",
+    "Equilibrium Concept (Physical & Chemical)",
+    "Equilibrium Law & Constant (Expressions, Extent, Forms, Gaseous, Heterogeneous, Multi-step)",
+    "Equilibrium Direction & Calculations",
+    "Equilibrium Concentration Calculation",
+    "Factors Affecting Equilibrium",
+    "Ionic Equilibrium (Acids, Bases, Salts, Conjugate Pairs, Ionization, Water Kw, pH, Ka/Kb, Ka-Kb Relation)",
+    "Salt Hydrolysis & pH",
+    "Common Ion Effect",
+    "Volumetric Titrations",
+    "Di/Polybasic Acids & Di/Polyacidic Bases",
+    "Acid-Base Indicators",
+    "Buffer Solutions",
+    "Solubility Equilibria (Ksp, Calculations, Precipitation, Factors, pH Effect, Qual. Analysis)",
+    "Phase Equilibria (Evaporation, SVP, BP, Enthalpy of Vaporization, Phase Diagrams)",
+    "Binary Liquid-Vapour Eq. (Ideal & Immiscible)",
+    "Partition/Distribution Coefficient",
+    "Solution Conductivity Factors",
+    "Equilibrium Electrodes (Metal-ion, Metal-salt, Gas, Redox)",
+    "Electrochemical Cells (Construction, Electrode Potential Factors, Types)",
+    "Electrolysis ($$H_2O$$, $$CuSO_4$$, $$NaCl$$, Molten $$NaCl$$, Quantitative)",
+    "Alcohols (Structure, Properties, Reactions: O-H, C-O Cleavage, Elim, Ox)",
+    "Phenols (Structure, Properties, Reactions: Acidity, O-H Cleavage, No SN)",
+    "Phenol Benzene Reactivity ($$Br_2$$, Nitration)",
+    "Aldehydes & Ketones (Structure, Properties, Reactions: Nucleophilic Add, Reduction, Oxidation)",
+    "Carboxylic Acids (Structure, Properties, Reactions: O-H, C-O Cleavage, Reduction)",
+    "Carboxylic Acid Derivative Reactions (Acid Chloride)"
 ]
 question = (f'I want you to generate  intermediate to advanced poll question(only one) on the topic '
-            f'{topics[random.randrange(len(topics))]}. I want your answer to be in a specific format.Do not use any '
-            f'type of latex formatting or anything.You will provide the answer in a dictionary format. I only want '
-            f'the relevant question and answers. Not any extra bluff or thing.REMEMBER, YOU SHOULD ONLY PROVIDE THE '
-            f'JSON FORMATTED FILE AND NOT OTHER TEXT'
-            f'You should '
+            f'{topics[random.randrange(len(topics))]}.I want your answer to be in a specific format.Do not use any '
+            f'type of latex formatting or anything.You will provide the answer in a dictionary format. I only want the relevant question and answers. Not any extra bluff or thing.REMEMBER, YOU SHOULD ONLY PROVIDE THE JSON FORMATTED FILE AND NOT OTHER TEXT You should '
             f'not drag away from '
             f'the syllabus at all whatever the topic it is. Only ask questions from the syllabus. And the response '
             f'should  be in a dictionary format. your dictionary should have the keys "question" which represents '
             f'the poll question and "answers" which represents a list of 5 tricky answers for the question with only '
-            f'one  correct answer(remember the answers length should not exceed 100 according to telegrams '
-            f'limitation. same goes for question length limitation which is 256) and '
+            f'one  correct answer(answers length <= 100'
+            f'. question length <= 256) and '
             f'an "answer" key '
             f'which consists '
             f'of the index of the correct answer from the li'
             f'st of available answers.')
-
 
 async def send_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
