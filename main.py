@@ -26,6 +26,7 @@ def run_dummy_server():
 
 # 2. Run the dummy server on a separate thread so it doesn't block your script
 threading.Thread(target=run_dummy_server, daemon=True).start()
+print("Your actual script is now running...")
 
 load_dotenv(dotenv_path='bot.env')
 BRAINUS_API_KEY = os.getenv("BRAINUS_API_KEY")
@@ -179,4 +180,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-print("Your actual script is now running...")
