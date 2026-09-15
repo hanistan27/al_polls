@@ -105,19 +105,19 @@ topics = [
     "Carboxylic Acids (Structure, Properties, Reactions: O-H, C-O Cleavage, Reduction)",
     "Carboxylic Acid Derivative Reactions (Acid Chloride)"
 ]
-question = (f'I want you to generate  intermediate to advanced poll question(only one) on the topic '
-            f'{topics[random.randrange(len(topics))]}.I want your answer to be in a specific format.Do not use any '
-            f'type of latex formatting or anything.You will provide the answer in a dictionary format. I only want the relevant question and answers. Not any extra bluff or thing.REMEMBER, YOU SHOULD ONLY PROVIDE THE JSON FORMATTED FILE AND NOT OTHER TEXT You should '
-            f'not drag away from '
-            f'the syllabus at all whatever the topic it is. Only ask questions from the syllabus. And the response '
-            f'should  be in a dictionary format. your dictionary should have the keys "question" which represents '
+question = (f'I want you to generate a poll question(only one)on the topic {random.choice(topics)}.'
+            f'Do not use any type of latex formatting or anything.'
+            f'You will provide the answer in a dictionary format.'
+            f'I only want the relevant question and answers. '
+            f'Not any extra bluff or thing.'
+            f'REMEMBER, YOU SHOULD ONLY PROVIDE THE JSON FORMATTED FILE AND NOT OTHER TEXT.'
+            f'You should not drag away from the syllabus at all whatever the topic it is.'
+            f'Only ask questions from the syllabus.'
+            f'And the response should  be in a dictionary format. '
+            f'Your dictionary should have the keys "question" which represents '
             f'the poll question and "answers" which represents a list of 5 tricky answers for the question with only '
-            f'one  correct answer(answers length <= 100'
-            f'. question length <= 256) and '
-            f'an "answer" key '
-            f'which consists '
-            f'of the index of the correct answer from the li'
-            f'st of available answers.')
+            f'one  correct answer(answers length <= 100. question length <= 256) '
+            f'and an "answer" key which consists of the index of the correct answer from the list of available answers.')
 
 async def send_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
