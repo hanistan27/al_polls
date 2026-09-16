@@ -106,7 +106,7 @@ topics = [
     "Carboxylic Acids (Structure, Properties, Reactions: O-H, C-O Cleavage, Reduction)",
     "Carboxylic Acid Derivative Reactions (Acid Chloride)"
 ]
-question = (f'I want you to generate a poll question(only one)on the topic {random.choice(topics)}.'
+question = (f'I want you to generate an (intermediate or advanced) poll question(only one)on the topic {random.choice(topics)}.'
             f'Do not use any type of latex formatting or anything.'
             f'You will provide the answer in a dictionary format.'
             f'I only want the relevant question and answers. '
