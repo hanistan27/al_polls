@@ -117,8 +117,8 @@ question = (f'I want you to generate an (difficulty level-advanced) poll questio
             f'And the response should  be in a dictionary format. '
             f'Your dictionary should have the keys "question" which represents '
             f'the poll question and "answers" which represents a list of 5 tricky answers for the question with only '
-            f'one  correct answer(answers length <= 100. question length <= 256) '
-            f'and an "answer" key which consists of the index of the correct answer from the list of available answers.')
+            f'one  correct answer(options length <= 100. question length <= 256) '
+            f'and an "answer" key which consists of the index of the correct answer from the list of available answers. options character length should not exceed 100')
 
 async def send_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
