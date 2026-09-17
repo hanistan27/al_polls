@@ -156,10 +156,10 @@ def main():
     application = Application.builder().token(TOKEN).build()
 
     # Register your handlers
-    application.add_handler(CommandHandler("Chemistry Quiz", c_send_command))
+    application.add_handler(CommandHandler("chem_quiz", c_send_command))
     application.add_handler(CallbackQueryHandler(button_callback))
 
-    application.add_handler(CommandHandler("Bio Quiz", b_send_command))
+    application.add_handler(CommandHandler("bio_quiz", b_send_command))
     application.add_handler(CallbackQueryHandler(button_callback))
 
 
