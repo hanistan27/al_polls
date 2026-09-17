@@ -64,8 +64,8 @@ bio_topics = [
 ]
 
 
-question = (f"Generate exactly one advanced-level poll question on the topic:{random.choice(chem_topics)} .
-Constraints:
+question = (
+    f"Generate exactly one advanced-level poll question on the topic:{random.choice(chem_topics)} .Constraints:
 Difficulty: Very high and syllabus-aligned only (strictly no basic questions).
 Text Formatting: Plain text only (do not use LaTeX or markdown styling).
 Character Limits: Question <= 250 characters; each answer choice <= 100 characters.
