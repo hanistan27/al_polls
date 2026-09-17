@@ -64,41 +64,70 @@ bio_topics = [
 ]
 
 
-question = (
-    f"Generate exactly one advanced-level poll question on the topic:{random.choice(chem_topics)} .Constraints:
-Difficulty: Very high and syllabus-aligned only (strictly no basic questions).
-Text Formatting: Plain text only (do not use LaTeX or markdown styling).
-Character Limits: Question <= 250 characters; each answer choice <= 100 characters.
-Output strictly raw valid JSON with no conversational text or markdown code blocks. Use the following exact schema structure:
-\{
-\"question\": \"Concise advanced question text (max 250 chars)\",
-\"answers\": [\"Option 0\", \"Option 1\", \"Option 2\", \"Option 3\", \"Option 4\"],
-\"answer\": 0
-\}
-Note: \"answers\" must contain exactly 5 tricky choices (max 100 chars each) with only 1 correct answer. \"answer\" must be the 0-based integer index of the correct choice.")
+chem_question = (
+    f"Generate exactly one advanced-level poll question on the topic:{random.choice(chem_topics)} .Constraints:"
+    f"Difficulty: Very high and syllabus-aligned only (strictly no basic questions)."
+    f"Text Formatting: Plain text only (do not use LaTeX or markdown styling)."
+    f"Character Limits: Question <= 250 characters; each answer choice <= 100 characters."
+    f"Output strictly raw valid JSON with no conversational text or markdown code blocks. Use the following exact schema structure:"
+    "{"
+    f"\"question\": \"Concise advanced question text (max 250 chars)\","
+    f"\"answers\": [\"Option 0\", \"Option 1\", \"Option 2\", \"Option 3\", \"Option 4\"],"
+    f"\"answer\": 0"
+    "}"
+    f"Note: \"answers\" must contain exactly 5 tricky choices (max 100 chars each) with only 1 correct answer. \"answer\" must be the 0-based integer index of the correct choice.")
+bio_question = (
+    f"Generate exactly one advanced-level poll question on the topic:{random.choice(bio_topics)} .Constraints:"
+    f"Difficulty: Very high and syllabus-aligned only (strictly no basic questions)."
+    f"Text Formatting: Plain text only (do not use LaTeX or markdown styling)."
+    f"Character Limits: Question <= 250 characters; each answer choice <= 100 characters."
+    f"Output strictly raw valid JSON with no conversational text or markdown code blocks. Use the following exact schema structure:"
+    "{"
+    f"\"question\": \"Concise advanced question text (max 250 chars)\","
+    f"\"answers\": [\"Option 0\", \"Option 1\", \"Option 2\", \"Option 3\", \"Option 4\"],"
+    f"\"answer\": 0"
+    "}"
+    f"Note: \"answers\" must contain exactly 5 tricky choices (max 100 chars each) with only 1 correct answer. \"answer\" must be the 0-based integer index of the correct choice.")
 
-async def send_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+# send a chemistry poll quiz in the group
+async def c_send_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🚀 Send Quiz Poll", callback_data="trigger_poll")]
+        [InlineKeyboardButton("🚀 Send Chemistry Quiz Poll", callback_data="chem_poll")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        "⚙️ *Admin Control Panel*\n\nClick the button below to generate and dispatch a quiz poll:",
+        text="⚙️ *Admin Control Panel*\n\nClick the button below to generate and dispatch a chemistry poll:",
         reply_markup=reply_markup,
         parse_mode="Markdown"
     )
 
+# send a bio quiz poll in the group
+async def b_send_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton(text="🚀 Send Bio Quiz Poll", callback_data="bio_poll")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text(
+        text="⚙️ *Admin Control Panel*\n\nClick the button below to generate and dispatch a bio poll:",
+        reply_markup=reply_markup,
+        parse_mode="Markdown"
+    )
 
 async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    if query.data == "trigger_poll":
+    if query.data == ("chem_poll" or "bio_poll"):
         try:
             await query.edit_message_text(text="🧠 Generating quiz from Brainus AI...")
 
             async with BrainusAI() as client:
-                result = await client.query(query=question, store_id='default')
+                # decide if its a chemistry poll or a bio poll
+                if query.data == "chem_poll":
+                    result = await client.query(query=chem_question, store_id='default')
+                elif query.data == "bio_poll":
+                    result = await client.query(query=bio_question, store_id='default')
+
                 json_response = result.answer
                 print(json_response)
                 cleaned_json = re.sub(r"^```(?:json)?\s*([\s\S]*?)\s*```$", r"\1", json_response.strip())
@@ -127,8 +156,12 @@ def main():
     application = Application.builder().token(TOKEN).build()
 
     # Register your handlers
-    application.add_handler(CommandHandler("send", send_command))
+    application.add_handler(CommandHandler("Chemistry Quiz", c_send_command))
     application.add_handler(CallbackQueryHandler(button_callback))
+
+    application.add_handler(CommandHandler("Bio Quiz", b_send_command))
+    application.add_handler(CallbackQueryHandler(button_callback))
+
 
     # Keeps the bot running continuously in the background listening for commands
     application.run_polling()
