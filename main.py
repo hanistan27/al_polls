@@ -33,92 +33,49 @@ BRAINUS_API_KEY = os.getenv("BRAINUS_API_KEY")
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-topics = [
-    "Hydrogen Spectrum",
-    "Orbital Shapes",
-    "Orbitals & Quantum Numbers",
-    "Electron Configuration (Aufbau, Pauli, Hund's Rule, Condensed)",
-    "Periodic Table Construction",
-    "s & p Block Periodic Trends (Size, Ionization E, Electron Affinity, Electronegativity)",
-    "Covalent Bonds (Lewis Structures)",
-    "Dative Bonds",
-    "VSEPR Theory",
-    "Orbital Hybridization",
-    "Double & Triple Bonds",
-    "Resonance Structures",
-    "Molecule Polarity (Electronegativity & Geometry)",
-    "Dipole Moment",
-    "Electronegativity Factors",
-    "Ionic Bonds",
-    "Metallic Bonds",
-    "Secondary Interactions",
-    "Oxidation Number (Redox Use)",
-    "Inorganic Nomenclature",
-    "Atomic Mass, Mole, Avogadro's Constant",
-    "Molar Mass",
-    "Chemical Formulae (Empirical & Molecular)",
-    "Mixture Composition",
-    "Solution Percentage Composition",
-    "Molality & Molarity",
-    "Balancing Reactions (Inspection, Redox, Nuclear)",
-    "Solution Preparation",
-    "Reaction Calculations",
-    "s Block (Group 1: Trends, Reactions, Stability, Solubility, Flame Test)",
-    "s Block (Group 2: Trends, Reactions, Stability, Solubility, Flame Test)",
-    "p Block (Group 13: Trends, Al)",
-    "p Block (Group 14: Trends, C, CO, CO2, Carbon Oxoacid)",
-    "p Block (Group 15: Trends, N Chemistry, N Oxoacids, Ammonia/Ammonium)",
-    "p Block (Group 16: Trends, Hydrides, O, S, O Cmpds, $$H_2O_2$$, S Cmpds, S Oxoacids)",
-    "p Block (Group 17: Trends, Cmpds, Cl Reactions)",
-    "p Block (Group 18: Trends, Cmpds)",
-    "s & p Block Periodic Trends (Valence)",
-    "Reaction Rate (Avg, Instant, Initial)",
-    "Conc. Effect on Rate (0, 1st, 2nd Order Graphs)",
-    "Reaction Order & Rate Constant Determination",
-    "Surface Area Effect on Rate",
-    "Catalyst Effect on Rate",
-    "Reaction Mechanisms (Molecularity, Steps, Rate Laws, Pre-equilibrium)",
-    "Reaction Energy Profiles",
-    "Equilibrium Concept (Physical & Chemical)",
-    "Equilibrium Law & Constant (Expressions, Extent, Forms, Gaseous, Heterogeneous, Multi-step)",
-    "Equilibrium Direction & Calculations",
-    "Equilibrium Concentration Calculation",
-    "Factors Affecting Equilibrium",
-    "Ionic Equilibrium (Acids, Bases, Salts, Conjugate Pairs, Ionization, Water Kw, pH, Ka/Kb, Ka-Kb Relation)",
-    "Salt Hydrolysis & pH",
-    "Common Ion Effect",
-    "Volumetric Titrations",
-    "Di/Polybasic Acids & Di/Polyacidic Bases",
-    "Acid-Base Indicators",
-    "Buffer Solutions",
-    "Solubility Equilibria (Ksp, Calculations, Precipitation, Factors, pH Effect, Qual. Analysis)",
-    "Phase Equilibria (Evaporation, SVP, BP, Enthalpy of Vaporization, Phase Diagrams)",
-    "Binary Liquid-Vapour Eq. (Ideal & Immiscible)",
-    "Partition/Distribution Coefficient",
-    "Solution Conductivity Factors",
-    "Equilibrium Electrodes (Metal-ion, Metal-salt, Gas, Redox)",
-    "Electrochemical Cells (Construction, Electrode Potential Factors, Types)",
-    "Electrolysis ($$H_2O$$, $$CuSO_4$$, $$NaCl$$, Molten $$NaCl$$, Quantitative)",
-    "Alcohols (Structure, Properties, Reactions: O-H, C-O Cleavage, Elim, Ox)",
-    "Phenols (Structure, Properties, Reactions: Acidity, O-H Cleavage, No SN)",
-    "Phenol Benzene Reactivity ($$Br_2$$, Nitration)",
-    "Aldehydes & Ketones (Structure, Properties, Reactions: Nucleophilic Add, Reduction, Oxidation)",
-    "Carboxylic Acids (Structure, Properties, Reactions: O-H, C-O Cleavage, Reduction)",
-    "Carboxylic Acid Derivative Reactions (Acid Chloride)"
+chem_topics = [    
+    "Atomic Structure",
+    "Structure and Bonding",
+    "Chemical Calculations",
+    "Gaseous State of Matter",
+    "Energetics (Thermodynamics)",
+    "Chemistry of s, p and d Block Elements",
+    "Basic Organic Chemistry",
+    "Hydrocarbons and Halotetranes",
+    "Oxygen Containing Organic Compounds",
+    "Nitrogen Containing Organic Compounds",
+    "Chemical Kinetics",
+    "Chemical Equilibrium",
+    "Electrochemistry",
+    "Industrial Chemistry and Environmental Pollution"
 ]
-question = (f'I want you to generate an (difficulty level-advanced) poll question(only one)on the topic {random.choice(topics)}.'
-            f'Do not use any type of latex formatting or anything.'
-            f'You will provide the answer in a dictionary format.'
-            f'I only want the relevant question and answers. '
-            f'Not any extra bluff or thing.'
-            f'REMEMBER, YOU SHOULD ONLY PROVIDE THE JSON FORMATTED FILE AND NOT OTHER TEXT.'
-            f'You should not drag away from the syllabus at all whatever the topic it is.'
-            f'Only ask questions from the syllabus.'
-            f'And the response should  be in a dictionary format. '
-            f'Your dictionary should have the keys "question" which represents '
-            f'the poll question and "answers" which represents a list of 5 tricky answers for the question with only '
-            f'one  correct answer(options length <= 100. question length <= 256) '
-            f'and an "answer" key which consists of the index of the correct answer from the list of available answers. options character length should not exceed 100')
+
+bio_topics = [
+    "Introduction to Biology",
+    "Chemical and Cellular Basis of Life",
+    "Evolution and Diversity of Organisms",
+    "Plant Form and Function",
+    "Animal Form and Function",
+    "Genetics",
+    "Molecular Biology and Recombinant DNA Technology",
+    "Environmental Biology",
+    "Microbiology",
+    "Applied Biology"
+]
+
+
+question = (f"Generate exactly one advanced-level poll question on the topic:{random.choice(chem_topics)} .
+Constraints:
+Difficulty: Very high and syllabus-aligned only (strictly no basic questions).
+Text Formatting: Plain text only (do not use LaTeX or markdown styling).
+Character Limits: Question <= 250 characters; each answer choice <= 100 characters.
+Output strictly raw valid JSON with no conversational text or markdown code blocks. Use the following exact schema structure:
+\{
+\"question\": \"Concise advanced question text (max 250 chars)\",
+\"answers\": [\"Option 0\", \"Option 1\", \"Option 2\", \"Option 3\", \"Option 4\"],
+\"answer\": 0
+\}
+Note: \"answers\" must contain exactly 5 tricky choices (max 100 chars each) with only 1 correct answer. \"answer\" must be the 0-based integer index of the correct choice.")
 
 async def send_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
