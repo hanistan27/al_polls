@@ -117,7 +117,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    if query.data == ("chem_poll" or "bio_poll"):
+    if query.data in ("chem_poll","bio_poll"):
         try:
             await query.edit_message_text(text="🧠 Generating quiz from Brainus AI...")
 
