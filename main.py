@@ -78,7 +78,7 @@ chem_question = (
     f"Note: \"answers\" must contain exactly 5 tricky choices (max 100 chars each) with only 1 correct answer. \"answer\" must be the 0-based integer index of the correct choice.")
 bio_question = (
     f"Generate exactly one advanced-level poll question on the topic:{random.choice(bio_topics)} .Constraints:"
-    f"Difficulty: Very high and syllabus-aligned only (strictly no basic questions)."
+    f"Difficulty: high and syllabus-aligned only (strictly no basic questions). English terms should be basic and not harder. Question should be harder"
     f"Text Formatting: Plain text only (do not use LaTeX or markdown styling)."
     f"Character Limits: Question <= 250 characters; each answer choice <= 100 characters."
     f"Output strictly raw valid JSON with no conversational text or markdown code blocks. Use the following exact schema structure:"
